@@ -70,41 +70,44 @@ class _BookListPageState extends State<BookListPage> {
               itemCount: _bookList.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  child: ListTile(
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(_bookList[index].title),
-                          ),
-                          Container(
-                            width: 40,
-                            child: InkWell(
-                              child: Icon(
-                                Icons.remove_circle,
-                                color: Colors.redAccent,
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  DbProvider()
-                                      .deleteBook(_bookList[index].book_id);
-                                  _bookList.removeAt(index);
-                                });
-                              },
+                return Dismissible(
+                  key: Key(_bookList[index].book_id.toString()),
+                  onDismissed: (direction) {
+                    setState(() {
+                      DbProvider().deleteBook(_bookList[index].book_id);
+                      _bookList.removeAt(index);
+                    });
+                    if (direction == DismissDirection.endToStart) {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Deleted'),
+                        ),
+                      );
+                    }
+                  },
+                  background: Container(
+                    color: Colors.orangeAccent,
+                  ),
+                  child: Card(
+                    child: ListTile(
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(_bookList[index].title),
                             ),
-                          ),
-                        ],
-                      ),
-                      onTap: () {
-                        setState(() {
-                          Navigator.of(context).push(MaterialPageRoute<void>(
-                              builder: (BuildContext context) {
-                            return new FlashcardListPage(
-                                _bookList[index].book_id);
-                          }));
-                        });
-                      }),
+                          ],
+                        ),
+                        onTap: () {
+                          setState(() {
+                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                              return new FlashcardListPage(
+                                  _bookList[index].book_id);
+                            }));
+                          });
+                        }),
+                  ),
                 );
               },
             ),
