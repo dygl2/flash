@@ -1,5 +1,6 @@
 import 'package:flash/edit_card.dart';
 import 'package:flash/flashcard.dart';
+import 'package:flash/play_flashcard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flash/db_provider.dart';
 
@@ -41,12 +42,24 @@ class _FlashcardListPageState extends State<FlashcardListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(_book_title),
-          leading: FlatButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Icon(Icons.arrow_back_ios),
-            shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-          )),
+        title: Text(_book_title),
+        leading: FlatButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Icon(Icons.arrow_back_ios),
+          shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Icon(Icons.play_circle_outline),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute<void>(builder: (BuildContext context) {
+                return new PlayFlashcardPage(_cardList);
+              }));
+            },
+          )
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
