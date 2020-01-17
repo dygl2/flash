@@ -46,7 +46,7 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
         title: Text(_book_title),
         actions: <Widget>[
           FlatButton(
-            child: Icon(Icons.stop),
+            child: Icon(Icons.pause_circle_outline),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],

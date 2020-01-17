@@ -74,37 +74,40 @@ class _FlashcardListPageState extends State<FlashcardListPage> {
               itemCount: _cardList.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(_cardList[index].question),
+                return Dismissible(
+                  key: Key(_cardList[index].card_id.toString()),
+                  onDismissed: (direction) {
+                    setState(() {
+                      DbProvider().deleteCard(_cardList[index].card_id);
+                      _cardList.removeAt(index);
+                    });
+                    if (direction == DismissDirection.endToStart) {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Deleted'),
                         ),
-                        Container(
-                          width: 40,
-                          child: InkWell(
-                            child: Icon(
-                              Icons.remove_circle,
-                              color: Colors.redAccent,
-                            ),
-                            onTap: () {
-                              setState(() {
-                                DbProvider()
-                                    .deleteCard(_cardList[index].card_id);
-                                _cardList.removeAt(index);
-                              });
-                            },
+                      );
+                    }
+                  },
+                  background: Container(
+                    color: Colors.orangeAccent,
+                  ),
+                  child: Card(
+                    child: ListTile(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(_cardList[index].question),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      onTap: () {
+                        setState(() {
+                          _edit(_cardList[index], index);
+                        });
+                      },
                     ),
-                    onTap: () {
-                      setState(() {
-                        _edit(_cardList[index], index);
-                      });
-                    },
                   ),
                 );
               },
