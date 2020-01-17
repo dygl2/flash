@@ -3,21 +3,24 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class PlayFlashcardPage extends StatefulWidget {
+  String _book_title;
   List<Flashcard> _cards;
 
-  PlayFlashcardPage(this._cards);
+  PlayFlashcardPage(this._book_title, this._cards);
 
   @override
-  _PlayFlashcardPageState createState() => _PlayFlashcardPageState(this._cards);
+  _PlayFlashcardPageState createState() =>
+      _PlayFlashcardPageState(this._book_title, _cards);
 }
 
 class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
+  final String _book_title;
   final List<Flashcard> _cards;
   int _index = 0;
   bool _isAnswer = false;
   Random rdm;
 
-  _PlayFlashcardPageState(this._cards);
+  _PlayFlashcardPageState(this._book_title, this._cards);
 
   void _init() async {
     rdm = new Random();
@@ -40,6 +43,7 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(_book_title),
         actions: <Widget>[
           FlatButton(
             child: Icon(Icons.stop),

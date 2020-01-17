@@ -15,13 +15,14 @@ class FlashcardListPage extends StatefulWidget {
 
 class _FlashcardListPageState extends State<FlashcardListPage> {
   final int _book_id;
-  final String _book_title = "";
+  String _book_title;
   List<Flashcard> _cardList = [];
   int _index = 0;
 
   _FlashcardListPageState(this._book_id);
 
   void _init() async {
+    _book_title = await DbProvider().getBookTitle(_book_id);
     _cardList = await DbProvider().getCardAll(_book_id);
 
     setState(() {});
@@ -54,7 +55,7 @@ class _FlashcardListPageState extends State<FlashcardListPage> {
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<void>(builder: (BuildContext context) {
-                return new PlayFlashcardPage(_cardList);
+                return new PlayFlashcardPage(_book_title, _cardList);
               }));
             },
           )

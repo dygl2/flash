@@ -92,6 +92,12 @@ class DbProvider {
     });
   }
 
+  Future<String> getBookTitle(int index) async {
+    List<Map<String, dynamic>> maps =
+        await _db.query('book', where: 'book_id = ?', whereArgs: [index]);
+    return maps.length > 0 ? maps[0]['title'] : "";
+  }
+
   Future<List<Flashcard>> getCardAll(int index) async {
     List<Map<String, dynamic>> maps =
         await _db.query('card', where: 'book_id = ?', whereArgs: [index]);
