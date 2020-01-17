@@ -66,6 +66,7 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
             _isAnswer ? _cards[_index].answer : _cards[_index].question,
             style: TextStyle(
               fontSize: 40.0,
+              fontStyle: _isAnswer ? FontStyle.italic : FontStyle.normal,
               fontWeight: FontWeight.bold,
             ),
           ),
