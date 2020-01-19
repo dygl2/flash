@@ -52,24 +52,20 @@ class _FlashcardListPageState extends State<FlashcardListPage> {
         actions: <Widget>[
           FlatButton(
             child: Icon(Icons.arrow_right, size: 50.0),
-            shape:
-                CircleBorder(side: BorderSide(color: Colors.black, width: 5.0)),
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<void>(builder: (BuildContext context) {
-                return new PlayFlashcardPage(_book_title, _cardList);
+                return new PlayFlashcardPage(_book_title, _cardList, true);
               }));
             },
           ),
           FlatButton(
             child: Icon(Icons.arrow_left,
                 size: 50.0, textDirection: TextDirection.ltr),
-            shape:
-                CircleBorder(side: BorderSide(color: Colors.black, width: 5.0)),
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<void>(builder: (BuildContext context) {
-                return new PlayFlashcardPage(_book_title, _cardList);
+                return new PlayFlashcardPage(_book_title, _cardList, false);
               }));
             },
           )
