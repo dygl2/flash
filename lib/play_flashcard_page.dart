@@ -18,7 +18,7 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
   final String _book_title;
   final List<Flashcard> _cards;
   int _index = 0;
-  bool _isAnswer = false;
+  bool _isAnswer;
   bool _isFwdDir;
   Random rdm;
 
@@ -26,6 +26,7 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
 
   void _init() async {
     rdm = new Random();
+    _isAnswer = !_isFwdDir;
 
     setState(() {});
   }
