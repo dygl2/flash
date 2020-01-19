@@ -5,12 +5,13 @@ import 'dart:math';
 class PlayFlashcardPage extends StatefulWidget {
   String _book_title;
   List<Flashcard> _cards;
+  bool _isFwdDir;
 
-  PlayFlashcardPage(this._book_title, this._cards);
+  PlayFlashcardPage(this._book_title, this._cards, this._isFwdDir);
 
   @override
   _PlayFlashcardPageState createState() =>
-      _PlayFlashcardPageState(this._book_title, _cards);
+      _PlayFlashcardPageState(this._book_title, _cards, _isFwdDir);
 }
 
 class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
@@ -18,9 +19,10 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
   final List<Flashcard> _cards;
   int _index = 0;
   bool _isAnswer = false;
+  bool _isFwdDir;
   Random rdm;
 
-  _PlayFlashcardPageState(this._book_title, this._cards);
+  _PlayFlashcardPageState(this._book_title, this._cards, this._isFwdDir);
 
   void _init() async {
     rdm = new Random();
@@ -55,7 +57,7 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
         behavior: HitTestBehavior.opaque,
         onTap: () {
           setState(() {
-            if (_isAnswer) {
+            if (_isFwdDir == _isAnswer) {
               _index = rdm.nextInt(_cards.length);
             }
             _isAnswer = !_isAnswer;
