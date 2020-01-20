@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flash/db_provider.dart';
 import 'package:flash/book.dart';
 import 'package:flash/edit_book.dart';
+import 'package:flash/setting_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -55,6 +56,18 @@ class _BookListPageState extends State<BookListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Flash'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () async {
+                bool result = await Navigator.of(context).push(
+                    MaterialPageRoute<bool>(
+                        builder: (BuildContext context) => new SettingPage()));
+                setState(() {
+                  _isFwdDir = result;
+                });
+              })
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
