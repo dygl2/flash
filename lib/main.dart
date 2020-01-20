@@ -2,8 +2,6 @@ import 'package:flash/flashcard_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flash/db_provider.dart';
 import 'package:flash/book.dart';
-import 'package:flash/flashcard.dart';
-import 'package:flash/edit_card.dart';
 import 'package:flash/edit_book.dart';
 
 void main() => runApp(MyApp());
@@ -32,6 +30,7 @@ class _BookListPageState extends State<BookListPage> {
   DbProvider db = DbProvider();
   List<Book> _bookList = [];
   int _index = 0;
+  bool _isFwdDir = false;
 
   void _init() async {
     await db.database;
@@ -103,7 +102,7 @@ class _BookListPageState extends State<BookListPage> {
                             Navigator.of(context).push(MaterialPageRoute<void>(
                                 builder: (BuildContext context) {
                               return new FlashcardListPage(
-                                  _bookList[index].book_id);
+                                  _bookList[index].book_id, _isFwdDir);
                             }));
                           });
                         }),

@@ -6,11 +6,13 @@ import 'package:flash/db_provider.dart';
 
 class FlashcardListPage extends StatefulWidget {
   final int _book_id;
+  final bool _isFwdDir;
 
-  FlashcardListPage(this._book_id);
+  FlashcardListPage(this._book_id, this._isFwdDir);
 
   @override
-  _FlashcardListPageState createState() => _FlashcardListPageState(_book_id);
+  _FlashcardListPageState createState() =>
+      _FlashcardListPageState(_book_id, _isFwdDir);
 }
 
 class _FlashcardListPageState extends State<FlashcardListPage> {
@@ -18,8 +20,9 @@ class _FlashcardListPageState extends State<FlashcardListPage> {
   String _book_title;
   List<Flashcard> _cardList = [];
   int _index = 0;
+  bool _isFwdDir;
 
-  _FlashcardListPageState(this._book_id);
+  _FlashcardListPageState(this._book_id, this._isFwdDir);
 
   void _init() async {
     _book_title = await DbProvider().getBookTitle(_book_id);
@@ -51,24 +54,14 @@ class _FlashcardListPageState extends State<FlashcardListPage> {
         ),
         actions: <Widget>[
           FlatButton(
-            child: Icon(Icons.arrow_right, size: 50.0),
+            child: Icon(Icons.play_circle_outline),
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<void>(builder: (BuildContext context) {
-                return new PlayFlashcardPage(_book_title, _cardList, true);
+                return new PlayFlashcardPage(_book_title, _cardList, _isFwdDir);
               }));
             },
           ),
-          FlatButton(
-            child: Icon(Icons.arrow_left,
-                size: 50.0, textDirection: TextDirection.ltr),
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute<void>(builder: (BuildContext context) {
-                return new PlayFlashcardPage(_book_title, _cardList, false);
-              }));
-            },
-          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
