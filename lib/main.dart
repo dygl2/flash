@@ -31,7 +31,7 @@ class _BookListPageState extends State<BookListPage> {
   DbProvider db = DbProvider();
   List<Book> _bookList = [];
   int _index = 0;
-  bool _isFwdDir = false;
+  static bool _isFwdDir = false;
 
   void _init() async {
     await db.database;
