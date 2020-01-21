@@ -6,7 +6,7 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  bool _isFwdDir = false;
+  static bool _isFwdDir = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class _SettingPageState extends State<SettingPage> {
                 value: _isFwdDir,
                 activeColor: Colors.orange,
                 inactiveTrackColor: Colors.grey,
-                title: Text('Play forward directibn'),
+                title: Text('Play forward'),
                 onChanged: (bool sw) {
                   _isFwdDir = sw;
                 },
