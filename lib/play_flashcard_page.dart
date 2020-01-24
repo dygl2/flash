@@ -26,6 +26,7 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
 
   void _init() async {
     rdm = new Random();
+    _index = rdm.nextInt(_cards.length);
     _isAnswer = !_isFwdDir;
 
     setState(() {});
