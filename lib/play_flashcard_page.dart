@@ -73,6 +73,7 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
               fontStyle: _isAnswer ? FontStyle.italic : FontStyle.normal,
               fontWeight: FontWeight.bold,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       ),
