@@ -4,6 +4,7 @@ import 'package:flash/db_provider.dart';
 import 'package:flash/book.dart';
 import 'package:flash/edit_book.dart';
 import 'package:flash/setting_page.dart';
+import 'package:flash/play_flashcard_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -108,6 +109,24 @@ class _BookListPageState extends State<BookListPage> {
                             Expanded(
                               child: Text(_bookList[index].title),
                             ),
+                            Container(
+                              width: 40.0,
+                              child: InkWell(
+                                child: Icon(Icons.play_circle_filled),
+                                onTap: () async {
+                                  var _cardList = await DbProvider()
+                                      .getCardAll(_bookList[index].book_id);
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute<void>(
+                                          builder: (BuildContext context) {
+                                    return new PlayFlashcardPage(
+                                        _bookList[index].title,
+                                        _cardList,
+                                        _isFwdDir);
+                                  }));
+                                },
+                              ),
+                            )
                           ],
                         ),
                         onTap: () {
