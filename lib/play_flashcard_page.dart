@@ -21,6 +21,7 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
   bool _isAnswer;
   bool _isFwdDir;
   Random rdm;
+  int _dx = 30;
 
   _PlayFlashcardPageState(this._book_title, this._cards, this._isFwdDir);
 
@@ -57,12 +58,20 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () {
+        onPanUpdate: (details) {
           setState(() {
             if (_isFwdDir == _isAnswer) {
-              _index = rdm.nextInt(_cards.length);
+              if (details.delta.dx < -_dx) {
+                _index = rdm.nextInt(_cards.length);
+                _isAnswer = !_isAnswer;
+              } else if (details.delta.dx > _dx) {
+                _isAnswer = !_isAnswer;
+              }
+            } else {
+              if (details.delta.dx < -_dx) {
+                _isAnswer = !_isAnswer;
+              }
             }
-            _isAnswer = !_isAnswer;
           });
         },
         child: Center(
