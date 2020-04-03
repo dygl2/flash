@@ -58,19 +58,19 @@ class _PlayFlashcardPageState extends State<PlayFlashcardPage> {
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onPanUpdate: (details) {
+        onTap: () {
           setState(() {
             if (_isFwdDir == _isAnswer) {
-              if (details.delta.dx < -_dx) {
-                _index = rdm.nextInt(_cards.length);
-                _isAnswer = !_isAnswer;
-              } else if (details.delta.dx > _dx) {
-                _isAnswer = !_isAnswer;
-              }
-            } else {
-              if (details.delta.dx < -_dx) {
-                _isAnswer = !_isAnswer;
-              }
+              _index = rdm.nextInt(_cards.length);
+            }
+
+            _isAnswer = !_isAnswer;
+          });
+        },
+        onDoubleTap: () {
+          setState(() {
+            if (_isFwdDir == _isAnswer) {
+              _isAnswer = !_isAnswer;
             }
           });
         },
